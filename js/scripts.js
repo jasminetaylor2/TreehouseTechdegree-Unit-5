@@ -1,18 +1,20 @@
 
+// 
+
 let xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
         // let employees = JSON.parse(xhr.responseText   
         //  console.log(xhr.responseText);
-    $.ajax({
-            url: 'https://randomuser.me/api/?results=13',
+        $.ajax({
+            url: 'https://randomuser.me/api/?results=13&inc=name,email,location,picture',
             dataType: 'json',
             success: function (data) {
                 console.log(data);
             }
         });
     }
-} 
+}
 xhr.open('GET', 'https://randomuser.me');
 xhr.send();
 //typeof
