@@ -1,5 +1,5 @@
 const url = 'https://randomuser.me/api/?results=13&inc=name,email,location,picture,cell,dob'
-
+let arrayResult;
 //Custom Markup
 $(".header-text-container").prepend(`<h3>JASMINE TAYLOR'S</h3>`);
 //                     < !-- ======================
@@ -22,12 +22,13 @@ $(".search-container")
 function getAllEmployees() {
     let xhr = new XMLHttpRequest
     let url = 'https://randomuser.me/api/?results=12&inc=name,email,location,picture,cell,dob'
+
     xhr.onreadystatechange = fetch(url)
         .then(response => response.json())
 
         .then(results => {
 
-            let arrayResult = results;
+            arrayResult = results;
             for (let index = 0; index < arrayResult.results.length; index++) {
                 const person = arrayResult.results[index]
                 const picture = person.picture.medium
@@ -48,9 +49,11 @@ function getAllEmployees() {
                 </div>`;
 
                 $(".gallery").append(cardGallery);
+                $(".card").attr("id", "btn")
             }   //createCard() //employee, index
             console.log(arrayResult)
         })
+
 
     xhr.open('GET', 'https://randomuser.me')
     xhr.send();
@@ -62,64 +65,17 @@ getAllEmployees();
 
 
 
-//  < !-- ======================
-// Gallery markup:
-
-// You can use the commented out markup below as a template
-// for each of your Gallery items, but you must use JS to
-// create and append them to the`gallery` div.
-
-// function createCard(person) {
-//      //const picture = person.picture.thumbnail
-//     //const person = employee[index]
-//     //employee.map(person, index => {
-//         let cardGallery = `
-//     <div class="card">
-//         <div class="card-img-container">
-//             <img class="card-img" src= " " alt="profile picture">
-//     </div>
-//             <div class="card-info-container">
-//                 <h3 id="name" class="card-name cap">first last</h3>
-//                 <p class="card-text">email</p>
-//                 <p class="card-text cap">city, state</p>
-//             </div>
-//         </div>`;
-//     $(".gallery").append(cardGallery);
-
-//     //createModal() //employee, index
-//         // } )
-//         console.log('hi')
-//         //return cardGallery;
-
-
-// }
-// createCard()
-// function createCard() {
-//     let cardGallery = `
-//     <div class="card">
-//    <div class="card-img-container">
-//     <img class="card-img" src="https://placehold.it/90x90" alt="profile picture">
-//     </div>
-//     <div class="card-info-container">
-//         <h3 id="name" class="card-name cap">first last</h3>
-//         <p class="card-text">email</p>
-//         <p class="card-text cap">city, state</p>
-//         </div>
-//     </div>`;
-//     $(".gallery").append(cardGallery);
-//     //return cardGallery;
-// }
-// createCard();
-
 // < !-- =======================
 //     Modal markup:
 
 // You can use the commented out markup below as a template
 // for your modal, but you must use JS to create and append
 // it to`body`.
-function createModal() {
-    let modalcard = $('body')
-        .append(`<div class="modal-container">
+function createModal(i) {
+  //arrayResult[]
+ 
+        let modalcard = $('body')
+            .append(`<div class="modal-container">
                  <div class="modal">
                  <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
                  <div class="modal-info-container">
@@ -133,24 +89,28 @@ function createModal() {
                     <p class="modal-text">Birthday: 10/21/2015</p>
                     </div>
                 </div>`);
-    return modalcard;
-    //${person.picture}
-    //employee, index
-    //const person = employee[index]
+      // $('body').append(modalcard) return modalcard;
+    
+
+
 }
 
 //create modal
-$('.card').on('click', () => {
-    createModal();
-    $(".modal-info-container").append(`<div class="modal-btn-container">
-    <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
-    <button type="button" id="modal-next" class="modal-next btn">Next</button>
-</div>`)
-    closeModal();
-    console.log('now what')
+$(".gallery").on("click", ".card", function (e) {
+    let i = e.currentTarget
+    createModal(i);
+    //     $(".modal-info-container").append(`<div class="modal-btn-container">
+    //     <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+    //     <button type="button" id="modal-next" class="modal-next btn">Next</button>
+    // </div>`)
+    //     closeModal();
+    // var children = e.currentTarget.index();
+
+    console.log(e);
 
 
 });
+
 //close modal
 function closeModal() {
     //let xButton = document.getElementsByTagName('strong')
