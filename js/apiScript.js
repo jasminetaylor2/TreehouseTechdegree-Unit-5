@@ -73,7 +73,7 @@ getAllEmployees();
 // it to`body`.
 function createModal(i) {
   //arrayResult[]
- 
+ //e.currenttarget.map()
         let modalcard = $('body')
             .append(`<div class="modal-container">
                  <div class="modal">
