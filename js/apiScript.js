@@ -1,3 +1,8 @@
+const url = 'https://randomuser.me/api/?results=13&inc=name,email,location,picture,cell,dob'
+const gallery = document.getElementById
+
+
+
 //Custom Markup
 $(".header-text-container").prepend(`<h3>JASMINE TAYLOR'S</h3>`);
 //                     < !-- ======================
@@ -19,25 +24,35 @@ $(".search-container")
 */
 function getAllEmployees() {
     let xhr = new XMLHttpRequest
-    let url = 'https://randomuser.me/api/?results=13&inc=name,email,location,picture,cell,dob'
+    let url = 'https://randomuser.me/api/?results=12&inc=name,email,location,picture,cell,dob'
     xhr.onreadystatechange = fetch(url)
         .then(response => response.json())
-        .then(results =>  { 
-            let arrayResult = results;
-            for (let i in arrayResult) {
-                let element = arrayResult[i];
-                let name = element.name;
 
-                    console.log(element)
-            }
-        }); 
-    
-    
-    xhr.open('GET', 'https://randomuser.me');
+        .then(results => {
+            // let arrayResult = results;
+            // for (let index = 0; index < 12; index++) {
+            //     // let element = arrayResult[index];
+            //     createCard()
+            //     console.log(results)
+            // }
+            let arrayResult = results;
+            for (let index = 0; index < arrayResult.results.length; index++)
+                //let name = element.name;
+                createCard()
+            console.log(arrayResult)
+        })
+    //  .then(data => data.results).map(data => data)
+
+
+    xhr.open('GET', 'https://randomuser.me')
     xhr.send();
-    return getAllEmployees;
+
+    //})
 }
+
+
 getAllEmployees();
+
 
 
 //  < !-- ======================
@@ -48,8 +63,7 @@ getAllEmployees();
 // create and append them to the`gallery` div.
 
 function createCard() {
-    let cardGallery = $('.gallery')
-        .html(`
+    let cardGallery = `
     <div class="card">
    <div class="card-img-container">
     <img class="card-img" src="https://placehold.it/90x90" alt="profile picture">
@@ -59,8 +73,9 @@ function createCard() {
         <p class="card-text">email</p>
         <p class="card-text cap">city, state</p>
         </div>
-    </div>`);
-    return cardGallery;
+    </div>`;
+    $(".gallery").append(cardGallery);
+    //return cardGallery;
 }
 createCard();
 // < !-- =======================
@@ -85,6 +100,7 @@ function createModal() {
                     <p class="modal-text">Birthday: 10/21/2015</p>
                     </div>
                 </div>`);
+    return modalcard
 
 }
 
@@ -97,19 +113,21 @@ $('.card').on('click', () => {
 </div>`)
     console.log('now what')
     closeModal();
-   
+
 });
 //close modal
 function closeModal() {
- //let xButton = document.getElementsByTagName('strong')
+    //let xButton = document.getElementsByTagName('strong')
     $(".modal-info-container").click(function () {
-        
-        $("div.modal").css({ "display": "none" }); console.log('heard');
+        // $("div.modal").prop("disabled", false)
+        // if ($("div.modal").value = false) {
+        $("div.modal").css({ "display": "none" });
+        console.log('heard');
     })
 
-    
+
 }
- 
+
 // function modalButton(selector, idx) { 
 //     $(selector).attr('idx', 'idx');
 //     $(selector).prop("disabled", false)
