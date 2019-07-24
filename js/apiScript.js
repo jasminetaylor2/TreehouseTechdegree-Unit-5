@@ -1,7 +1,4 @@
 const url = 'https://randomuser.me/api/?results=13&inc=name,email,location,picture,cell,dob'
-const gallery = document.getElementById
-
-
 
 //Custom Markup
 $(".header-text-container").prepend(`<h3>JASMINE TAYLOR'S</h3>`);
@@ -29,25 +26,35 @@ function getAllEmployees() {
         .then(response => response.json())
 
         .then(results => {
-            // let arrayResult = results;
-            // for (let index = 0; index < 12; index++) {
-            //     // let element = arrayResult[index];
-            //     createCard()
-            //     console.log(results)
-            // }
+
             let arrayResult = results;
-            for (let index = 0; index < arrayResult.results.length; index++)
-                //let name = element.name;
-                createCard()
+            for (let index = 0; index < arrayResult.results.length; index++) {
+                const person = arrayResult.results[index]
+                const picture = person.picture.medium
+                const name = person.name
+                const email = person.email
+                const location = person.location
+                let cardGallery = `
+                <div class="card">
+                <div class="card-img-container">
+                 <img class="card-img" src= ${picture} alt="profile picture">
+                </div>
+
+                <div class="card-info-container">
+                <h3 id="name" class="card-name cap">${name.first} ${name.last}</h3>
+                <p class="card-text">${email}</p>
+                <p class="card-text cap">${location.city} , ${location.state}</p>
+                </div>
+                </div>`;
+
+                $(".gallery").append(cardGallery);
+            }   //createCard() //employee, index
             console.log(arrayResult)
         })
-    //  .then(data => data.results).map(data => data)
-
 
     xhr.open('GET', 'https://randomuser.me')
     xhr.send();
 
-    //})
 }
 
 
@@ -62,22 +69,48 @@ getAllEmployees();
 // for each of your Gallery items, but you must use JS to
 // create and append them to the`gallery` div.
 
-function createCard() {
-    let cardGallery = `
-    <div class="card">
-   <div class="card-img-container">
-    <img class="card-img" src="https://placehold.it/90x90" alt="profile picture">
-    </div>
-    <div class="card-info-container">
-        <h3 id="name" class="card-name cap">first last</h3>
-        <p class="card-text">email</p>
-        <p class="card-text cap">city, state</p>
-        </div>
-    </div>`;
-    $(".gallery").append(cardGallery);
-    //return cardGallery;
-}
-createCard();
+// function createCard(person) {
+//      //const picture = person.picture.thumbnail
+//     //const person = employee[index]
+//     //employee.map(person, index => {
+//         let cardGallery = `
+//     <div class="card">
+//         <div class="card-img-container">
+//             <img class="card-img" src= " " alt="profile picture">
+//     </div>
+//             <div class="card-info-container">
+//                 <h3 id="name" class="card-name cap">first last</h3>
+//                 <p class="card-text">email</p>
+//                 <p class="card-text cap">city, state</p>
+//             </div>
+//         </div>`;
+//     $(".gallery").append(cardGallery);
+
+//     //createModal() //employee, index
+//         // } )
+//         console.log('hi')
+//         //return cardGallery;
+
+
+// }
+// createCard()
+// function createCard() {
+//     let cardGallery = `
+//     <div class="card">
+//    <div class="card-img-container">
+//     <img class="card-img" src="https://placehold.it/90x90" alt="profile picture">
+//     </div>
+//     <div class="card-info-container">
+//         <h3 id="name" class="card-name cap">first last</h3>
+//         <p class="card-text">email</p>
+//         <p class="card-text cap">city, state</p>
+//         </div>
+//     </div>`;
+//     $(".gallery").append(cardGallery);
+//     //return cardGallery;
+// }
+// createCard();
+
 // < !-- =======================
 //     Modal markup:
 
@@ -90,7 +123,7 @@ function createModal() {
                  <div class="modal">
                  <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
                  <div class="modal-info-container">
-            <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
+            <img class="modal-img" src="picture" alt="profile picture"> 
                 <h3 id="name" class="modal-name cap">name</h3>
                 <p class="modal-text">email</p>
                 <p class="modal-text cap">city</p>
@@ -100,8 +133,10 @@ function createModal() {
                     <p class="modal-text">Birthday: 10/21/2015</p>
                     </div>
                 </div>`);
-    return modalcard
-
+    return modalcard;
+    //${person.picture}
+    //employee, index
+    //const person = employee[index]
 }
 
 //create modal
@@ -111,8 +146,9 @@ $('.card').on('click', () => {
     <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
     <button type="button" id="modal-next" class="modal-next btn">Next</button>
 </div>`)
-    console.log('now what')
     closeModal();
+    console.log('now what')
+
 
 });
 //close modal
@@ -121,7 +157,8 @@ function closeModal() {
     $(".modal-info-container").click(function () {
         // $("div.modal").prop("disabled", false)
         // if ($("div.modal").value = false) {
-        $("div.modal").css({ "display": "none" });
+        // $("div.modal").css({ "display": "none" });
+        $(".modal-info-container").hide();
         console.log('heard');
     })
 
