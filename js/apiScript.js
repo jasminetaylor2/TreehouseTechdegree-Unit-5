@@ -21,7 +21,7 @@ $(".search-container")                                              //created th
 */
 function getAllEmployees() {
     let xhr = new XMLHttpRequest
-    let url = 'https://randomuser.me/api/?results=12&inc=name,email,location,picture,cell,dob'
+    let url = 'https://randomuser.me/api/?results=12&inc=name,email,location,picture,cell,dob&nat=us'
 
     xhr.onreadystatechange = fetch(url)
         .then(response => response.json())
@@ -53,14 +53,16 @@ function getAllEmployees() {
                 <h3 id="name" class="card-name cap">${name.first} ${name.last}</h3>
                 <p class="card-text">${email}</p>
                 <p class="card-text cap">${city} , ${state}</p>
-                <p class="phone">${phone}</p>
-                <p class="address">${address}</p>
-                <p class="city">${city}</p>
-                <p class="state">${state}</p>
-                <p class="dob">${bd_formated}</p>
-                <p class="postcode">${postcode}</p>
-                </div>
-                </div>`;
+                 </div>
+                     </div >`;
+                
+                $(".card-info-container").append(  `<p class="phone">${phone}</p>
+                    <p class="address">${address}</p>
+                    <p class="city">${city}</p>
+                    <p class="state">${state}</p>
+                    <p class="dob">${bd_formated}</p>
+                    <p class="postcode">${postcode}</p>`)
+                
                 $(".phone").hide();
                 $(".address").hide();
                 $(".city").hide()
@@ -71,7 +73,7 @@ function getAllEmployees() {
                // console.log(address)
 
                 $(".gallery").append(cardGallery);
-                $(".card").attr("id", "btn")
+             //   $(".card").attr("id", "btn")
             }   //createCard() //employee, index
             console.log(arrayResult)
             
@@ -83,7 +85,6 @@ function getAllEmployees() {
 
 }
 
-
 getAllEmployees();
 
 
@@ -93,7 +94,7 @@ $(".gallery").on("click", ".card", function (e) {
     let i = e.currentTarget
     let picture = i.firstElementChild.firstElementChild.currentSrc
     let name = i.children[1].firstElementChild.innerHTML
-    let email = i.firstElementChild.nextElementSibling.children[1].innerHTML
+    let email = i.firstElementChild.nextElementSibling.children[0].innerHTML
     let city = i.children[1].children[5].innerHTML 
     let phone = i.children[1].children[3].innerHTML               
     let address = i.children[1].children[4].innerHTML
@@ -145,7 +146,7 @@ $(".gallery").on("click", ".card", function (e) {
     const next = document.getElementById("modal-next")
     const card = document.getElementById("btn")
     prev.className = "modal-prev btn";
-    prev.onclick = () => { console.log('u clicked prev button')}
+    prev.onclick = () => { card.next()  }
     
     next.className = "modal-next btn";
     next.onclick = () => {console.log('u clicked next button') }
